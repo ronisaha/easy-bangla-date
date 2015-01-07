@@ -9,8 +9,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace EasyBanglaDate;
+namespace EasyBanglaDate\Types;
 
+use EasyBanglaDate\Common\BaseDateTime;
 
 class DateTime extends BaseDateTime
 {
@@ -24,7 +25,7 @@ class DateTime extends BaseDateTime
             $out = str_replace($item, $this->_format($item), $out);
         }
 
-        return str_replace(self::$enDigit, self::$bnDigit, $out);
+        return $out;
     }
 
     protected function replaceMonths($format)
@@ -32,7 +33,7 @@ class DateTime extends BaseDateTime
         return $this->getInBengali($format, array('F', 'M'));
     }
 
-    function format($format)
+    public function format($format)
     {
         $out = $this->replaceTimes($format);
         $out = $this->replaceTimePrefix($out);
@@ -40,8 +41,9 @@ class DateTime extends BaseDateTime
         $out = $this->replaceDateNumbers($out);
         $out = $this->replaceMonths($out);
         $out = $this->replaceDays($out);
+        $out = $this->replaceMeridian($out);
 
-        return $this->replaceMeridian($out);
+        return $this->translateNumbers($out);
     }
 
 }
