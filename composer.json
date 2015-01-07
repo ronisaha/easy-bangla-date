@@ -1,0 +1,31 @@
+{
+    "name": "ronisaha/easy-bangla-date",
+    "type": "library",
+    "description": "Extended DateTime Class For Bangla Date and Time",
+    "keywords": ["Bangla DateTime", "Bangla Date", "Bangla"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roni Saha",
+            "email": "roni.cse@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/ronisaha/easy-bangla-date/issues",
+        "source": "https://github.com/ronisaha/easy-bangla-date"
+    },
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "EasyBanglaDate": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
