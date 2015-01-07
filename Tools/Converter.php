@@ -55,8 +55,8 @@ class Converter
             case 8: return self::convertDatesOfAugust($day, $hour, $morning);
             case 9: return self::convertDatesOfSeptember($day, $hour, $morning);
             case 10: return self::convertDatesOfOctober($day, $hour, $morning);
-            case 11: return self::convertDatesOfNovember($day, $hour, $morning);
-            case 12: return self::convertDatesOfDecember($day, $hour, $morning);
+            case 11: return self::convertDatesOfNovember($day, $hour, $morning); break;
+            default : return self::convertDatesOfDecember($day, $hour, $morning);
         }
     }
 
