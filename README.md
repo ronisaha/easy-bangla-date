@@ -18,3 +18,8 @@ echo $gregorian->format('l jS F Y b h:i:s');
 echo $bongabda->format('l jS F Y b h:i:s');
 
 ```
+
+Output
+-------
+
+![Alt text](/screenshot.jpeg?raw=true "Output")
