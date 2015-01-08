@@ -23,6 +23,11 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_data.csv');
     }
 
+    public function dataProviderForFlag_t()
+    {
+        return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_t_data.csv');
+    }
+
     /**
      * @dataProvider flagDataProvider
      * @param $time
@@ -35,10 +40,15 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $object->format($flag));
     }
 
-    public function testReturnEmptyForUnImplementedFlag_t()
+    /**
+     * @dataProvider dataProviderForFlag_t
+     * @param $time
+     * @param $expected
+     */
+    public function testDayInMonth($time, $expected)
     {
-        $object = new BnDateTime("now", new \DateTimeZone('Asia/Dhaka'));
-        $this->assertEquals("", $object->format('t'));
+        $object = new BnDateTime($time, new \DateTimeZone('Asia/Dhaka'));
+        $this->assertEquals($expected, $object->format('t'));
     }
 
     public function testCustomMorningTest()

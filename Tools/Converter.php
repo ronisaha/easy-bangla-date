@@ -13,6 +13,19 @@ namespace EasyBanglaDate\Tools;
 
 class Converter
 {
+    const JANUARY = 1;
+    const FEBRUARY = 2;
+    const MARCH = 3;
+    const APRIL = 4;
+    const MAY = 5;
+    const JUNE = 6;
+    const JULY = 7;
+    const AUGUST = 8;
+    const SEPTEMBER = 9;
+    const OCTOBER = 10;
+    const NOVEMBER = 11;
+    const DECEMBER = 12;
+
     /**
      * @param \DateTime $time
      * @param int $morning
@@ -30,7 +43,7 @@ class Converter
         return array(
             'date'  => $bnDate,
             'month' => $bnMonth,
-            'year'  => self::getBengaliYear($enMonth, $day, $hour, $morning, $time)
+            'year'  => self::getBengaliYear($enMonth, $day, $hour, $morning, (int)$time->format('Y'))
         );
     }
 
@@ -45,26 +58,32 @@ class Converter
      */
     private static function getBengaliDateAndMonth($month, $day, $hour, $morning, $isLeapYear)
     {
+        if($month == 3) {
+            return self::convertDatesOfMarch($day, $hour, $morning, $isLeapYear);
+        }
+
+        return self::handleCommonConversionLogic($day, $hour, $morning, $month, self::getMagicArrayForMonth($month));
+    }
+
+    private static function getMagicArrayForMonth($month) {
+
         switch ($month) {
-            case 1:
-            case 4:
-                return self::convertDatesOfJanuaryOrApril($day, $hour, $morning, $month + 8);
-            case 5:
-            case 6:
-                return self::convertDatesOfMayOrJune($day, $hour, $morning, $month - 4);
-            case 7:
-            case 8:
-            case 9:
-                return self::convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, $month - 4);
-            case 2:
-                return self::convertDatesOfFebruary($day, $hour, $morning);
-            case 3:
-                return self::convertDatesOfMarch($day, $hour, $morning, $isLeapYear);
-            case 10:
-                return self::convertDatesOfOctober($day, $hour, $morning);
-            case 11:
+            case self::JANUARY:
+            case self::APRIL:
+                return array(13, 16, 14, 16);
+            case self::MAY:
+            case self::JUNE:
+                return array(14, 16, 15, 16);
+            case self::JULY:
+            case self::AUGUST:
+            case self::SEPTEMBER:
+                return array(15, 15, 16, 15);
+            case self::FEBRUARY:
+                return array(12, 17, 13, 17);
+            case self::OCTOBER:
+                return array(15, 14, 16, 14);
             default :
-                return self::convertDatesOfNovemberOrDecember($day, $hour, $morning, $month - 4);
+                return array(14, 15, 15, 15);
         }
     }
 
@@ -72,24 +91,14 @@ class Converter
      * @param $day
      * @param $hour
      * @param $morning
-     * @param $bnMonth
-     * @return array
-     */
-    private static function convertDatesOfJanuaryOrApril($day, $hour, $morning, $bnMonth)
-    {
-        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(13, 16, 14, 16));
-    }
-
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
-     * @param $bnMonth
+     * @param $enMonth
      * @param $offsetsArray
      * @return array
      */
-    private static function handleCommonConversionLogic($day, $hour, $morning, $bnMonth, $offsetsArray)
+    private static function handleCommonConversionLogic($day, $hour, $morning, $enMonth, $offsetsArray)
     {
+        $bnMonth = self::guessBenglaMonth($enMonth);
+
         if ($day >= 1 && $day <= $offsetsArray[0]) {
             return array(self::getNextDayIfNot($day + $offsetsArray[1], $hour < $morning), $bnMonth);
         }
@@ -137,41 +146,6 @@ class Converter
      * @param $day
      * @param $hour
      * @param $morning
-     * @param $bnMonth
-     * @return array
-     */
-    private static function convertDatesOfMayOrJune($day, $hour, $morning, $bnMonth)
-    {
-        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(14, 16, 15, 16));
-    }
-
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
-     * @param $bnMonth
-     * @return array
-     */
-    private static function convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, $bnMonth)
-    {
-        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(15, 15, 16, 15));
-    }
-
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
-     * @return array
-     */
-    private static function convertDatesOfFebruary($day, $hour, $morning)
-    {
-        return self::handleCommonConversionLogic($day, $hour, $morning, 10, array(12, 17, 13, 17));
-    }
-
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
      * @param $isLeapYear
      * @return array
      */
@@ -190,35 +164,16 @@ class Converter
         return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 15);
     }
 
-    private static function convertDatesOfOctober($day, $hour, $morning)
-    {
-        return self::handleCommonConversionLogic($day, $hour, $morning, 6, array(15, 14, 16, 14));
-    }
-
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
-     * @param $bnMonth
-     * @return array
-     */
-    private static function convertDatesOfNovemberOrDecember($day, $hour, $morning, $bnMonth)
-    {
-        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(14, 15, 15, 15));
-    }
-
     /**
      * @param $enMonth
      * @param $day
      * @param $hour
      * @param $morning
-     * @param \DateTime $time
+     * @param $engYear
      * @return int
      */
-    private static function getBengaliYear($enMonth, $day, $hour, $morning, \DateTime $time)
+    private static function getBengaliYear($enMonth, $day, $hour, $morning, $engYear)
     {
-        $engYear = (int)$time->format('Y');
-
         if (self::isBeforeNewYear($enMonth, $day, $hour, $morning)) {
             return $engYear - 594;
         }
@@ -236,5 +191,14 @@ class Converter
     private static function isBeforeNewYear($enMonth, $day, $hour, $morning)
     {
         return $enMonth < 4 || ($enMonth == 4 && (($day < 14) || ($day == 14 && $hour < $morning)));
+    }
+
+    /**
+     * @param $month
+     * @return mixed
+     */
+    private static function guessBenglaMonth($month)
+    {
+        return $month > 4 ? $month - 4 : $month + 8;
     }
 }
