@@ -77,15 +77,28 @@ class Converter
      */
     private static function convertDatesOfJanuaryOrApril($day, $hour, $morning, $bnMonth)
     {
-        if ($day >= 1 && $day <= 13) {
-            return array(self::getNextDayIfNot($day + 16, $hour < $morning), $bnMonth);
+        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(13, 16, 14, 16));
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @param $bnMonth
+     * @param $offsetsArray
+     * @return array
+     */
+    private static function handleCommonConversionLogic($day, $hour, $morning, $bnMonth, $offsetsArray)
+    {
+        if ($day >= 1 && $day <= $offsetsArray[0]) {
+            return array(self::getNextDayIfNot($day + $offsetsArray[1], $hour < $morning), $bnMonth);
         }
 
-        if ($day == 14 && $hour < $morning) {
-            return array($day + 16, $bnMonth);
+        if ($day == $offsetsArray[2] && $hour < $morning) {
+            return array($day + $offsetsArray[3], $bnMonth);
         }
 
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 14);
+        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, $offsetsArray[2]);
     }
 
     /**
@@ -124,21 +137,35 @@ class Converter
      * @param $day
      * @param $hour
      * @param $morning
+     * @param $bnMonth
+     * @return array
+     */
+    private static function convertDatesOfMayOrJune($day, $hour, $morning, $bnMonth)
+    {
+        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(14, 16, 15, 16));
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @param $bnMonth
+     * @return array
+     */
+    private static function convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, $bnMonth)
+    {
+        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(15, 15, 16, 15));
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
      * @return array
      */
     private static function convertDatesOfFebruary($day, $hour, $morning)
     {
-        $bnMonth = 10;
-
-        if ($day >= 1 && $day <= 12) {
-            return array(self::getNextDayIfNot($day + 17, $hour < $morning), $bnMonth);
-        }
-
-        if ($day == 13 && $hour < $morning) {
-            return array($day + 17, $bnMonth);
-        }
-
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 13);
+        return self::handleCommonConversionLogic($day, $hour, $morning, 10, array(12, 17, 13, 17));
     }
 
     /**
@@ -163,59 +190,9 @@ class Converter
         return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 15);
     }
 
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
-     * @param $bnMonth
-     * @return array
-     */
-    private static function convertDatesOfMayOrJune($day, $hour, $morning, $bnMonth)
-    {
-        if ($day >= 1 && $day <= 14) {
-            return array(self::getNextDayIfNot($day + 16, $hour < $morning), $bnMonth);
-        }
-
-        if ($day == 15 && $hour < $morning) {
-            return array($day + 16, $bnMonth);
-        }
-
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 15);
-    }
-
-    /**
-     * @param $day
-     * @param $hour
-     * @param $morning
-     * @param $bnMonth
-     * @return array
-     */
-    private static function convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, $bnMonth)
-    {
-        if ($day >= 1 && $day <= 15) {
-            return array(self::getNextDayIfNot($day + 15, $hour < $morning), $bnMonth);
-        }
-
-        if ($day == 16 && $hour < $morning) {
-            return array($day + 15, $bnMonth);
-        }
-
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 16);
-    }
-
     private static function convertDatesOfOctober($day, $hour, $morning)
     {
-        $bnMonth = 6;
-
-        if ($day >= 1 && $day <= 15) {
-            return array(self::getNextDayIfNot($day + 14, $hour < $morning), $bnMonth);
-        }
-
-        if ($day == 16 && $hour < $morning) {
-            return array($day + 14, $bnMonth);
-        }
-
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 16);
+        return self::handleCommonConversionLogic($day, $hour, $morning, 6, array(15, 14, 16, 14));
     }
 
     /**
@@ -227,15 +204,7 @@ class Converter
      */
     private static function convertDatesOfNovemberOrDecember($day, $hour, $morning, $bnMonth)
     {
-        if ($day >= 1 && $day <= 14) {
-            return array(self::getNextDayIfNot($day + 15, $hour < $morning), $bnMonth);
-        }
-
-        if ($day == 15 && $hour < $morning) {
-            return array($day + 15, $bnMonth);
-        }
-
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 15);
+        return self::handleCommonConversionLogic($day, $hour, $morning, $bnMonth, array(14, 15, 15, 15));
     }
 
     /**
