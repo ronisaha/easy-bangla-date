@@ -28,5 +28,10 @@
             "EasyBanglaDate": ""
         }
     },
-    "target-dir": "EasyBanglaDate"
+    "target-dir": "EasyBanglaDate",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
