@@ -71,7 +71,7 @@ class Converter
     private static function convertDatesOfJanuaryOrApril($day, $hour, $morning, $bnMonth)
     {
         if ($day >= 1 && $day <= 13) {
-            return array(self::getNextDayIfNot($day + 16, $hour < $morning), $bnMonth);
+            return self::getDateForLastMonth($day, $hour, $morning, $bnMonth, 16);
         }
 
         if ($day == 14 && $hour < $morning) {
@@ -121,17 +121,17 @@ class Converter
      */
     private static function convertDatesOfFebruary($day, $hour, $morning)
     {
-        $month = 10;
+        $bnMonth = 10;
 
         if ($day >= 1 && $day <= 12) {
-            return array(self::getNextDayIfNot($day + 17, $hour < $morning), $month);
+            return self::getDateForLastMonth($day, $hour, $morning, $bnMonth, 17);
         }
 
         if ($day == 13 && $hour < $morning) {
-            return array($day + 17, $month);
+            return array($day + 17, $bnMonth);
         }
 
-        return self::getDateForNextMonth($day, $hour, $morning, $month, 13);
+        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 13);
     }
 
     /**
@@ -143,17 +143,17 @@ class Converter
      */
     private static function convertDatesOfMarch($day, $hour, $morning, $isLeapYear)
     {
-        $month = 11;
+        $bnMonth = 11;
 
         if ($day >= 1 && $day <= 14) {
-            return array(self::getNextDayIfNot($day + self::getNextDayIfNot(15, $hour < $morning), !$isLeapYear), $month);
+            return array(self::getNextDayIfNot($day + self::getNextDayIfNot(15, $hour < $morning), !$isLeapYear), $bnMonth);
         }
 
         if ($day == 15 && $hour < $morning) {
-            return array(self::getNextDayIfNot($day + 15, !$isLeapYear), $month);
+            return array(self::getNextDayIfNot($day + 15, !$isLeapYear), $bnMonth);
         }
 
-        return self::getDateForNextMonth($day, $hour, $morning, $month, 15);
+        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 15);
     }
 
     /**
@@ -166,7 +166,7 @@ class Converter
     private static function convertDatesOfMayOrJune($day, $hour, $morning, $bnMonth)
     {
         if ($day >= 1 && $day <= 14) {
-            return array(self::getNextDayIfNot($day + 16, $hour < $morning), $bnMonth);
+            return self::getDateForLastMonth($day, $hour, $morning, $bnMonth, 16);
         }
 
         if ($day == 15 && $hour < $morning) {
@@ -186,7 +186,7 @@ class Converter
     private static function convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, $bnMonth)
     {
         if ($day >= 1 && $day <= 15) {
-            return array(self::getNextDayIfNot($day + 15, $hour < $morning), $bnMonth);
+            return self::getDateForLastMonth($day, $hour, $morning, $bnMonth, 15);
         }
 
         if ($day == 16 && $hour < $morning) {
@@ -198,17 +198,17 @@ class Converter
 
     private static function convertDatesOfOctober($day, $hour, $morning)
     {
-        $month = 6;
+        $bnMonth = 6;
 
         if ($day >= 1 && $day <= 15) {
-            return array(self::getNextDayIfNot($day + 14, $hour < $morning), $month);
+            return self::getDateForLastMonth($day, $hour, $morning, $bnMonth, 14);
         }
 
         if ($day == 16 && $hour < $morning) {
-            return array($day + 14, $month);
+            return array($day + 14, $bnMonth);
         }
 
-        return self::getDateForNextMonth($day, $hour, $morning, $month, 16);
+        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 16);
     }
 
     /**
@@ -221,7 +221,7 @@ class Converter
     private static function convertDatesOfNovemberOrDecember($day, $hour, $morning, $bnMonth)
     {
         if ($day >= 1 && $day <= 14) {
-            return array(self::getNextDayIfNot($day + 15, $hour < $morning), $bnMonth);
+            return self::getDateForLastMonth($day, $hour, $morning, $bnMonth, 15);
         }
 
         if ($day == 15 && $hour < $morning) {
@@ -260,5 +260,18 @@ class Converter
     private static function isBeforeNewYear($enMonth, $day, $hour, $morning)
     {
         return $enMonth < 4 || ($enMonth == 4 && (($day < 14) || ($day == 14 && $hour < $morning)));
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @param $bnMonth
+     * @param $offset
+     * @return array
+     */
+    private static function getDateForLastMonth($day, $hour, $morning, $bnMonth, $offset)
+    {
+        return array(self::getNextDayIfNot($day + $offset, $hour < $morning), $bnMonth);
     }
 }

@@ -54,7 +54,7 @@ class BnDateTime  extends BaseDateTime
     /**
      * @TODO: Implement get day in month
      */
-    private function getDayInMonth($month)
+    private function getDayInMonth()
     {
         return "";
     }
