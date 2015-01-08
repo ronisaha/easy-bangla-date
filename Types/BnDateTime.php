@@ -30,8 +30,8 @@ class BnDateTime  extends BaseDateTime
         $format = str_replace('d', str_pad($bnDate['date'], 2, 0, STR_PAD_LEFT), $format);
         $format = str_replace('j', $bnDate['date'], $format);
 
-        //@TODO: Implement get day in month
-        //$format = str_replace('t', $this->getDayInMonth($bnDate['month']), $format);
+        //@TODO: Implement getDayInMonth function $this->getDayInMonth($bnDate['month'])
+        $format = str_replace('t', "", $format);
         $format = str_replace('m', str_pad($bnDate['month'], 2, 0, STR_PAD_LEFT), $format);
         $format = str_replace('n', $bnDate['month'], $format);
         $format = str_replace('F', self::$bnMonths[$bnDate['month']], $format);
