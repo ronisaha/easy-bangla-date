@@ -4,6 +4,7 @@
     "description": "Extended DateTime Class For Bangla Date and Time",
     "keywords": ["Bangla DateTime", "Bangla Date", "Bangla"],
     "license": "MIT",
+    "homepage": "http://ronisaha.github.io/easy-bangla-date/",
     "authors": [
         {
             "name": "Roni Saha",
