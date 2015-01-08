@@ -40,4 +40,22 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $arr);
     }
+
+    public function testCustomMorningTest()
+    {
+        $object = new \DateTime("2015-01-01 05:00:00", new \DateTimeZone('Asia/Dhaka'));
+        $this->assertDateConversion($object, 6, "17");
+        $this->assertDateConversion($object, 4, "18");
+    }
+
+    /**
+     * @param $object
+     * @param $morning
+     * @param $expected
+     */
+    private function assertDateConversion($object, $morning, $expected)
+    {
+        $arr = Converter::getBengaliDateMonthYear($object, $morning);
+        $this->assertEquals($expected, $arr['date']);
+    }
 }

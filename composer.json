@@ -19,17 +19,13 @@
         "php": ">=5.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.3.*"
+        "phpunit/phpunit": "4.3.*",
+        "satooshi/php-coveralls": "~0.6"
     },
     "autoload": {
         "psr-0": {
             "EasyBanglaDate": ""
         }
     },
-    "target-dir": "EasyBanglaDate",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1.x-dev"
-        }
-    }
+    "target-dir": "EasyBanglaDate"
 }
