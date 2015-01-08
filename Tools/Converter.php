@@ -13,18 +13,31 @@ namespace EasyBanglaDate\Tools;
 
 class Converter
 {
-    const JANUARY = 1;
-    const FEBRUARY = 2;
-    const MARCH = 3;
-    const APRIL = 4;
-    const MAY = 5;
-    const JUNE = 6;
-    const JULY = 7;
-    const AUGUST = 8;
-    const SEPTEMBER = 9;
-    const OCTOBER = 10;
-    const NOVEMBER = 11;
-    const DECEMBER = 12;
+    private static $magicArray = array(
+        '1_4_JanuaryOrApril' => array(13, 16, 14, 16),
+        '2_February' => array(12, 17, 13, 17),
+        '5_6_MayOrJune' => array(14, 16, 15, 16),
+        '7_8_9_JulyOrAugustOrSeptember' => array(15, 15, 16, 15),
+        '10_October' => array(15, 14, 16, 14),
+        '11_12_NovemberOrDecember' => array(14, 15, 15, 15),
+    );
+
+    private static $indexByMonth = array(
+        "0",
+        '1_4_JanuaryOrApril',
+        '2_February',
+        "3",
+        '1_4_JanuaryOrApril',
+        '5_6_MayOrJune',
+        '5_6_MayOrJune',
+        '7_8_9_JulyOrAugustOrSeptember',
+        '7_8_9_JulyOrAugustOrSeptember',
+        '7_8_9_JulyOrAugustOrSeptember',
+        '10_October',
+        '11_12_NovemberOrDecember',
+        '11_12_NovemberOrDecember',
+    );
+
 
     /**
      * @param \DateTime $time
@@ -65,26 +78,9 @@ class Converter
         return self::handleCommonConversionLogic($day, $hour, $morning, $month, self::getMagicArrayForMonth($month));
     }
 
-    private static function getMagicArrayForMonth($month) {
-
-        switch ($month) {
-            case self::JANUARY:
-            case self::APRIL:
-                return array(13, 16, 14, 16);
-            case self::MAY:
-            case self::JUNE:
-                return array(14, 16, 15, 16);
-            case self::JULY:
-            case self::AUGUST:
-            case self::SEPTEMBER:
-                return array(15, 15, 16, 15);
-            case self::FEBRUARY:
-                return array(12, 17, 13, 17);
-            case self::OCTOBER:
-                return array(15, 14, 16, 14);
-            default :
-                return array(14, 15, 15, 15);
-        }
+    private static function getMagicArrayForMonth($month)
+    {
+        return self::$magicArray[self::$indexByMonth[$month]];
     }
 
     /**
@@ -151,17 +147,15 @@ class Converter
      */
     private static function convertDatesOfMarch($day, $hour, $morning, $isLeapYear)
     {
-        $bnMonth = 11;
-
         if ($day >= 1 && $day <= 14) {
-            return array(self::getNextDayIfNot($day + self::getNextDayIfNot(15, $hour < $morning), !$isLeapYear), $bnMonth);
+            return array(self::getNextDayIfNot($day + self::getNextDayIfNot(15, $hour < $morning), !$isLeapYear), 11);
         }
 
         if ($day == 15 && $hour < $morning) {
-            return array(self::getNextDayIfNot($day + 15, !$isLeapYear), $bnMonth);
+            return array(self::getNextDayIfNot($day + 15, !$isLeapYear), 11);
         }
 
-        return self::getDateForNextMonth($day, $hour, $morning, $bnMonth, 15);
+        return self::getDateForNextMonth($day, $hour, $morning, 11, 15);
     }
 
     /**

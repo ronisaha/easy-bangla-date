@@ -7,7 +7,7 @@ Easy Bangla Date
 [![Latest Stable Version](https://poser.pugx.org/ronisaha/easy-bangla-date/v/stable.png)](https://packagist.org/packages/ronisaha/easy-bangla-date)
 [![Total Downloads](https://poser.pugx.org/ronisaha/easy-bangla-date/downloads.png)](https://packagist.org/packages/ronisaha/easy-bangla-date)
 
-Utility Library For Bangla Date and Time. The conversion logic got from https://github.com/mhmithu/bangla-date-and-time
+Utility Library to Display Bangla Date and Time.
 
 Key Features
 ------------
@@ -35,7 +35,7 @@ echo $bongabda->format('l jS F Y b h:i:s');
 
 ```
 
-![Alt text](/screenshot.jpeg?raw=true "Output")
+![Output](/screenshot.jpeg?raw=true "Output")
 
 
 ## Installation/Usage
@@ -86,3 +86,8 @@ If you find a bug or want to add a feature to EasyBanglaDate, great! In order to
 6. Send me a pull request!
 
 
+### Some Similar PHP libraries you may like to see:
+
+* https://github.com/mhmithu/bangla-date-and-time
+* https://github.com/tareq1988/bangla-date
+* https://github.com/shahalom/translate-date-in-bangla
