@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Easy Bangla Date by ronisaha</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Easy Bangla Date</h1>
+          <h2>Extended DateTime Class For Bangla Date and Time</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/ronisaha/easy-bangla-date/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/ronisaha/easy-bangla-date/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/ronisaha/easy-bangla-date" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="easy-bangla-date" class="anchor" href="#easy-bangla-date" aria-hidden="true"><span class="octicon octicon-link"></span></a>Easy Bangla Date</h1>
+
+<p><a href="https://travis-ci.org/ronisaha/easy-bangla-date"><img src="https://travis-ci.org/ronisaha/easy-bangla-date.png?branch=master" alt="Build Status"></a>
+<a href="http://hhvm.h4cc.de/package/ronisaha/easy-bangla-date"><img src="http://hhvm.h4cc.de/badge/ronisaha/easy-bangla-date.svg" alt="HHVM Status"></a>
+<a href="https://coveralls.io/r/ronisaha/easy-bangla-date"><img src="https://coveralls.io/repos/ronisaha/easy-bangla-date/badge.png" alt="Coverage Status"></a>
+<a href="https://scrutinizer-ci.com/g/ronisaha/easy-bangla-date/?branch=master"><img src="https://scrutinizer-ci.com/g/ronisaha/easy-bangla-date/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
+<a href="https://packagist.org/packages/ronisaha/easy-bangla-date"><img src="https://poser.pugx.org/ronisaha/easy-bangla-date/v/stable.png" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/ronisaha/easy-bangla-date"><img src="https://poser.pugx.org/ronisaha/easy-bangla-date/downloads.png" alt="Total Downloads"></a></p>
+
+<p>Utility Library For Bangla Date and Time. The conversion logic got from <a href="https://github.com/mhmithu/bangla-date-and-time">https://github.com/mhmithu/bangla-date-and-time</a></p>
+
+<h2>
+<a id="key-features" class="anchor" href="#key-features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key Features</h2>
+
+<ul>
+<li>Easy to use</li>
+<li>Works same as php native DateTime Class</li>
+<li>Support almost all format option like DateTime class</li>
+<li>Can customize the start of day hour by setting morning option(for BnDateTime)</li>
+</ul>
+
+<h2>
+<a id="synopsis" class="anchor" href="#synopsis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Synopsis</h2>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\BnDateTime</span>;</span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\DateTime</span> <span class="pl-k">as</span> <span class="pl-s3">EnDateTime</span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>autoload.php<span class="pl-pds">'</span></span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$gregorian</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">EnDateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"><span class="pl-vo">$bongabda</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">BnDateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$gregorian</span><span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"></span></pre></div>
+
+<p><img src="/screenshot.jpeg?raw=true" alt="Alt text" title="Output"></p>
+
+<h2>
+<a id="installationusage" class="anchor" href="#installationusage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation/Usage</h2>
+
+<p>If you're using Composer to manage dependencies, you can include the following
+in your composer.json file:</p>
+
+<pre><code>"require": {
+    "ronisaha/easy-bangla-date": "dev-master"
+}
+</code></pre>
+
+<p>Then, after running <code>composer update</code> or <code>php composer.phar update</code>, you can
+load the class using Composer's autoloading:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s2"><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>vendor/autoload.php<span class="pl-pds">'</span></span>;</span></pre></div>
+
+<p>Otherwise, you can simply require the given <code>autoload.php</code> file:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s2"><span class="pl-k">require_once</span> <span class="pl-s1"><span class="pl-pds">'</span>PATH_TO_LIBRARY/autoload.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s2"></span></pre></div>
+
+<p>And in either case, I'd suggest using an alias for <code>EasyBanglaDate\Types\DateTime</code> Class to distinguish between native DateTime Class.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\DateTime</span> <span class="pl-k">as</span> <span class="pl-s3">EnDateTime</span>;</span></pre></div>
+
+<h2>
+<a id="methodsfeatures" class="anchor" href="#methodsfeatures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods/Features</h2>
+
+<p>Both <code>EasyBanglaDate\Types\DateTime</code> adn <code>EasyBanglaDate\Types\BnDateTime</code> has the member functions as native DateTime class.
+<code>EasyBanglaDate\Types\BnDateTime</code> got extra method setMorning to define a hour for start of day. By default day start at 6.
+Along with all format options of native DateTime class, we have extra option <code>b</code> which will print ('ভোর', 'সকাল', 'দুপুর', 'বিকাল', 'সন্ধ্যা', 'রাত')</p>
+
+<h2>
+<a id="contributing-to-library" class="anchor" href="#contributing-to-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing to Library</h2>
+
+<p>If you find a bug or want to add a feature to EasyBanglaDate, great! In order to make it easier and quicker for me to verify and merge changes in, it would be amazing if you could follow these few basic steps:</p>
+
+<ol>
+<li>Fork the project.</li>
+<li><strong>Branch out into a new branch. <code>git checkout -b name_of_new_feature_or_bug</code></strong></li>
+<li>Make your feature addition or bug fix.</li>
+<li><strong>Add tests for it. This is important so I don’t break it in a future version unintentionally.</strong></li>
+<li>Commit.</li>
+<li>Send me a pull request!</li>
+</ol>
+        </section>
+
+        <footer>
+          Easy Bangla Date is maintained by <a href="https://github.com/ronisaha">ronisaha</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
