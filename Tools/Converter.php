@@ -46,18 +46,25 @@ class Converter
     private static function getBengaliDateAndMonth($month, $day, $hour, $morning, $isLeapYear)
     {
         switch ($month) {
-            case 1: return self::convertDatesOfJanuaryOrApril($day, $hour, $morning, 9);
-            case 2: return self::convertDatesOfFebruary($day, $hour, $morning);
-            case 3: return self::convertDatesOfMarch($day, $hour, $morning, $isLeapYear);
-            case 4: return self::convertDatesOfJanuaryOrApril($day, $hour, $morning, 12);
-            case 5: return self::convertDatesOfMayOrJune($day, $hour, $morning, 1);
-            case 6: return self::convertDatesOfMayOrJune($day, $hour, $morning, 2);
-            case 7: return self::convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, 3);
-            case 8: return self::convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, 4);
-            case 9: return self::convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, 5);
-            case 10: return self::convertDatesOfOctober($day, $hour, $morning);
-            case 11: return self::convertDatesOfNovemberOrDecember($day, $hour, $morning, 7);
-            default : return self::convertDatesOfNovemberOrDecember($day, $hour, $morning, 8);
+            case 1:
+            case 4:
+                return self::convertDatesOfJanuaryOrApril($day, $hour, $morning, $month + 8);
+            case 5:
+            case 6:
+                return self::convertDatesOfMayOrJune($day, $hour, $morning, $month - 4);
+            case 7:
+            case 8:
+            case 9:
+                return self::convertDatesOfJulyOrAugustOrSeptember($day, $hour, $morning, $month - 4);
+            case 2:
+                return self::convertDatesOfFebruary($day, $hour, $morning);
+            case 3:
+                return self::convertDatesOfMarch($day, $hour, $morning, $isLeapYear);
+            case 10:
+                return self::convertDatesOfOctober($day, $hour, $morning);
+            case 11:
+            default :
+                return self::convertDatesOfNovemberOrDecember($day, $hour, $morning, $month - 4);
         }
     }
 

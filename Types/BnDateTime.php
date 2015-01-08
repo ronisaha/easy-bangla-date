@@ -29,7 +29,9 @@ class BnDateTime  extends BaseDateTime
         $format = str_replace('S', $this->getSuffix($bnDate['date']), $format);
         $format = str_replace('d', str_pad($bnDate['date'], 2, 0, STR_PAD_LEFT), $format);
         $format = str_replace('j', $bnDate['date'], $format);
-        $format = str_replace('t', $this->getDayInMonth($bnDate['month']), $format);
+
+        //@TODO: Implement get day in month
+        //$format = str_replace('t', $this->getDayInMonth($bnDate['month']), $format);
         $format = str_replace('m', str_pad($bnDate['month'], 2, 0, STR_PAD_LEFT), $format);
         $format = str_replace('n', $bnDate['month'], $format);
         $format = str_replace('F', self::$bnMonths[$bnDate['month']], $format);
@@ -49,14 +51,6 @@ class BnDateTime  extends BaseDateTime
         $out = $this->replaceMeridian($out);
 
         return $this->translateNumbers($out);
-    }
-
-    /**
-     * @TODO: Implement get day in month
-     */
-    private function getDayInMonth()
-    {
-        return "";
     }
 
     /**
