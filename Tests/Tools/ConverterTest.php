@@ -30,13 +30,13 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
      * @param $month
      * @param $day
      */
-    public function testFormat($time, $year, $month, $day)
+    public function testBengaliDateMonthYear($time, $year, $month, $day)
     {
         $object = new \DateTime($time, new \DateTimeZone('Asia/Dhaka'));
 
-        $arr = Converter::getBengaliDateMonthYear($object);
+        $arr = Converter::getBengaliDateMonthYear($object, 6);
 
-        $expected = array('date' => $day, 'month' => $month, 'year' => $year);
+        $expected = array('day' => $day, 'month' => $month, 'year' => $year);
 
         $this->assertEquals($expected, $arr);
     }
@@ -49,6 +49,22 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider flagDataProvider
+     * @param $time
+     * @param $year
+     * @param $month
+     * @param $day
+     */
+    public function testEnglishTimeFromBanglaDate($time, $year, $month, $day)
+    {
+        $object = new \DateTime($time, new \DateTimeZone('Asia/Dhaka'));
+        $object->modify('+1 day +2 month +1 year');
+        $newObj = Converter::getEnglishTimeFromBanglaDate($object, array('day' => $day, 'month' => $month, 'year' => $year), 6);
+
+        $this->assertEquals($time, $newObj->format('Y-m-d H:i:s'), "$time, $year, $month, $day");
+    }
+
+    /**
      * @param $object
      * @param $morning
      * @param $expected
@@ -56,6 +72,6 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     private function assertDateConversion($object, $morning, $expected)
     {
         $arr = Converter::getBengaliDateMonthYear($object, $morning);
-        $this->assertEquals($expected, $arr['date']);
+        $this->assertEquals($expected, $arr['day']);
     }
 }

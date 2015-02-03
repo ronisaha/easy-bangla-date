@@ -59,4 +59,17 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("১৮", $object->format('d'));
     }
 
+    public function testBanglaDateSetting()
+    {
+        $object = new BnDateTime("2015-01-01 08:00:00", new \DateTimeZone('Asia/Dhaka'));
+        $object->setDate(1405,9,21);
+        $this->assertEquals("২১-০৯-১৪০৫ ০৮:০০:০০", $object->format('d-m-Y H:i:s'));
+    }
+
+    public function testDateTimeObject()
+    {
+        $object = new BnDateTime("2015-01-01 08:00:00", new \DateTimeZone('Asia/Dhaka'));
+        $object->setDate(1421,1,1);
+        $this->assertEquals("১৪-০৪-২০১৪ ০৮:০০:০০", $object->getDateTime()->format('d-m-Y H:i:s'));
+    }
 }

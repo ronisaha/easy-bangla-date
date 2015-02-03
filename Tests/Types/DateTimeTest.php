@@ -35,4 +35,11 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $object->format($flag));
     }
 
+    public function testEnglishDateTimeObject()
+    {
+        $object = new DateTime("2015-01-01 08:00:00", new \DateTimeZone('Asia/Dhaka'));
+
+        $this->assertEquals("01-01-2015 08:00:00", $object->_format('d-m-Y H:i:s'));
+    }
+
 }

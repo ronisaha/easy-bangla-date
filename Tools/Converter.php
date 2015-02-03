@@ -38,13 +38,41 @@ class Converter
         '11_12_NovemberOrDecember',
     );
 
+    public static function getEnglishTimeFromBanglaDate(\DateTime $time, $bnDateArray, $morning )
+    {
+        self::adjustYearAndMonth($time, $bnDateArray, $morning);
+
+        $currentBnDate = self::getBengaliDateMonthYear($time, $morning);
+
+        $diff = self::getDiffInDays($currentBnDate, $bnDateArray);
+
+        if($diff == 0) {
+            return $time;
+        }
+
+        $time->modify(sprintf('%+d day', $diff));
+
+        return self::getEnglishTimeFromBanglaDate($time, $bnDateArray, $morning);
+
+    }
+
+    private static function getArrayValueDifference($lhs, $rhs)
+    {
+        $ret = array();
+
+        foreach (array('year', 'month', 'day') as $key) {
+            $ret[$key] = $rhs[$key] - $lhs[$key];
+        }
+
+        return $ret;
+    }
 
     /**
      * @param \DateTime $time
      * @param int $morning
      * @return array
      */
-    public static function getBengaliDateMonthYear(\DateTime $time, $morning = 6)
+    public static function getBengaliDateMonthYear(\DateTime $time, $morning)
     {
 
         $enMonth = $time->format('n');
@@ -54,9 +82,9 @@ class Converter
         list($bnDate, $bnMonth) = self::getBengaliDateAndMonth($enMonth, $day, $hour, $morning, $time->format('L'));
 
         return array(
-            'date'  => $bnDate,
+            'year'  => self::getBengaliYear($enMonth, $day, $hour, $morning, (int)$time->format('Y')),
             'month' => $bnMonth,
-            'year'  => self::getBengaliYear($enMonth, $day, $hour, $morning, (int)$time->format('Y'))
+            'day'  => $bnDate,
         );
     }
 
@@ -93,7 +121,7 @@ class Converter
      */
     private static function handleCommonConversionLogic($day, $hour, $morning, $enMonth, $offsetsArray)
     {
-        $bnMonth = self::guessBenglaMonth($enMonth);
+        $bnMonth = self::guessBanglaMonth($enMonth);
 
         if ($day >= 1 && $day <= $offsetsArray[0]) {
             return array(self::getNextDayIfNot($day + $offsetsArray[1], $hour < $morning), $bnMonth);
@@ -192,8 +220,41 @@ class Converter
      * @param $month
      * @return mixed
      */
-    private static function guessBenglaMonth($month)
+    private static function guessBanglaMonth($month)
     {
         return $month > 4 ? $month - 4 : $month + 8;
+    }
+
+    /**
+     * @param \DateTime $time
+     * @param $bnDateArray
+     * @param $morning
+     */
+    protected static function adjustYearAndMonth(\DateTime $time, $bnDateArray, $morning)
+    {
+        $diffArray = self::getArrayValueDifference(
+            self::getBengaliDateMonthYear($time, $morning),
+            $bnDateArray
+        );
+
+        $time->modify(sprintf('%+d year %+d month', $diffArray['year'], $diffArray['month']));
+    }
+
+    private static function getDiffInDays($lhs , $rhs)
+    {
+        return self::getDaysFromDateArray($rhs) - self::getDaysFromDateArray($lhs);
+    }
+
+    private static function getDaysFromDateArray($arr)
+    {
+        $days = $arr['year'] * 365.25;
+
+        if ($arr['month'] < 6) {
+            $days += ($arr['month'] * 31);
+        } else {
+            $days += (5 * 31) + (($arr['month'] - 5) * 30);
+        }
+
+        return $days + $arr['day'];
     }
 }

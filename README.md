@@ -15,6 +15,7 @@ Key Features
 * Works same as php native DateTime Class
 * Support almost all format option like DateTime class
 * Can customize the start of day hour by setting morning option(for BnDateTime)
+* Can be used to convert English-Bangla-English date format
 
 
 Synopsis
@@ -69,10 +70,81 @@ use EasyBanglaDate\Types\DateTime as EnDateTime;
 
 ## Methods/Features
 
-Both `EasyBanglaDate\Types\DateTime` adn `EasyBanglaDate\Types\BnDateTime` has the member functions as native DateTime class.
-`EasyBanglaDate\Types\BnDateTime` got extra method setMorning to define a hour for start of day. By default day start at 6.
-Along with all format options of native DateTime class, we have extra option `b` which will print ('ভোর', 'সকাল', 'দুপুর', 'বিকাল', 'সন্ধ্যা', 'রাত')
+Both `EasyBanglaDate\Types\DateTime` and `EasyBanglaDate\Types\BnDateTime` has the member functions as native DateTime class.
 
+##### DateTime
+* you can use `_format` function to get the default english `format` functionality.
+
+##### BnDateTime
+* `EasyBanglaDate\Types\BnDateTime` got extra method setMorning to define a hour for start of day. By default day start at 6.
+* Along with all format options of native DateTime class, we have extra option `b` which will print ('ভোর', 'সকাল', 'দুপুর', 'বিকাল', 'সন্ধ্যা', 'রাত')
+* Use `setDate($year, $month, $day)` to set bengali date
+* `getDateTime` method will return object of `EasyBanglaDate\Types\DateTime` for current object.
+
+
+## Cookbook
+
+##### English date in Bangla
+
+```php
+<?php
+use EasyBanglaDate\Types\DateTime;
+
+require 'autoload.php'
+
+$date = new DateTime('now', new DateTimeZone('Asia/Dhaka'));
+
+echo $date->format('l jS F Y b h:i:s');
+
+```
+
+##### Native format functionality
+
+```php
+<?php
+use EasyBanglaDate\Types\DateTime;
+
+require 'autoload.php'
+
+$date = new DateTime('now', new DateTimeZone('Asia/Dhaka'));
+
+echo $date->_format('l jS F Y b h:i:s');
+
+```
+
+##### Convert English to Bangla Date
+
+```php
+<?php
+use EasyBanglaDate\Types\BnDateTime;
+
+require 'autoload.php'
+
+$bongabda = new BnDateTime('now', new DateTimeZone('Asia/Dhaka'));
+
+echo $bongabda->format('l jS F Y b h:i:s');
+
+```
+
+##### Convert Bangla to English Date
+
+```php
+<?php
+use EasyBanglaDate\Types\BnDateTime;
+
+require 'autoload.php'
+
+$bongabda = new BnDateTime('now', new DateTimeZone('Asia/Dhaka'));
+
+echo $bongabda->format('l jS F Y b h:i:s');
+//Set Bengali date
+$bongabda->setDate(1405,1,1);
+//Get english date in bangla
+echo $bongabda->getDateTime()->format('l jS F Y b h:i:s');
+//Get english date in english
+echo $bongabda->getDateTime()->_format('l jS F Y h:i:s');
+
+```
 
 ## Contributing to Library
 
