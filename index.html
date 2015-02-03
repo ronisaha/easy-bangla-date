@@ -48,6 +48,7 @@
 <li>Works same as php native DateTime Class</li>
 <li>Support almost all format option like DateTime class</li>
 <li>Can customize the start of day hour by setting morning option(for BnDateTime)</li>
+<li>Can be used to convert English-Bangla-English date format</li>
 </ul>
 
 <h2>
@@ -66,7 +67,7 @@
 <span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
 <span class="pl-s2"></span></pre></div>
 
-<p><img src="https://raw.githubusercontent.com/ronisaha/easy-bangla-date/master/screenshot.jpeg" alt="Output" title="Output"></p>
+<p><img src="/screenshot.jpeg?raw=true" alt="Output" title="Output"></p>
 
 <h2>
 <a id="installationusage" class="anchor" href="#installationusage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation/Usage</h2>
@@ -96,9 +97,87 @@ load the class using Composer's autoloading:</p>
 <h2>
 <a id="methodsfeatures" class="anchor" href="#methodsfeatures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods/Features</h2>
 
-<p>Both <code>EasyBanglaDate\Types\DateTime</code> adn <code>EasyBanglaDate\Types\BnDateTime</code> has the member functions as native DateTime class.
-<code>EasyBanglaDate\Types\BnDateTime</code> got extra method setMorning to define a hour for start of day. By default day start at 6.
-Along with all format options of native DateTime class, we have extra option <code>b</code> which will print ('ভোর', 'সকাল', 'দুপুর', 'বিকাল', 'সন্ধ্যা', 'রাত')</p>
+<p>Both <code>EasyBanglaDate\Types\DateTime</code> and <code>EasyBanglaDate\Types\BnDateTime</code> has the member functions as native DateTime class.</p>
+
+<h5>
+<a id="datetime" class="anchor" href="#datetime" aria-hidden="true"><span class="octicon octicon-link"></span></a>DateTime</h5>
+
+<ul>
+<li>you can use <code>_format</code> function to get the default english <code>format</code> functionality.</li>
+</ul>
+
+<h5>
+<a id="bndatetime" class="anchor" href="#bndatetime" aria-hidden="true"><span class="octicon octicon-link"></span></a>BnDateTime</h5>
+
+<ul>
+<li>
+<code>EasyBanglaDate\Types\BnDateTime</code> got extra method setMorning to define a hour for start of day. By default day start at 6.</li>
+<li>Along with all format options of native DateTime class, we have extra option <code>b</code> which will print ('ভোর', 'সকাল', 'দুপুর', 'বিকাল', 'সন্ধ্যা', 'রাত')</li>
+<li>Use <code>setDate($year, $month, $day)</code> to set bengali date</li>
+<li>
+<code>getDateTime</code> method will return object of <code>EasyBanglaDate\Types\DateTime</code> for current object.</li>
+</ul>
+
+<h2>
+<a id="cookbook" class="anchor" href="#cookbook" aria-hidden="true"><span class="octicon octicon-link"></span></a>Cookbook</h2>
+
+<h5>
+<a id="english-date-in-bangla" class="anchor" href="#english-date-in-bangla" aria-hidden="true"><span class="octicon octicon-link"></span></a>English date in Bangla</h5>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\DateTime</span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>autoload.php<span class="pl-pds">'</span></span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$date</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">DateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$date</span><span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"></span></pre></div>
+
+<h5>
+<a id="native-format-functionality" class="anchor" href="#native-format-functionality" aria-hidden="true"><span class="octicon octicon-link"></span></a>Native format functionality</h5>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\DateTime</span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>autoload.php<span class="pl-pds">'</span></span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$date</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">DateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$date</span><span class="pl-k">-&gt;</span>_format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"></span></pre></div>
+
+<h5>
+<a id="convert-english-to-bangla-date" class="anchor" href="#convert-english-to-bangla-date" aria-hidden="true"><span class="octicon octicon-link"></span></a>Convert English to Bangla Date</h5>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\BnDateTime</span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>autoload.php<span class="pl-pds">'</span></span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$bongabda</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">BnDateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"></span></pre></div>
+
+<h5>
+<a id="convert-bangla-to-english-date" class="anchor" href="#convert-bangla-to-english-date" aria-hidden="true"><span class="octicon octicon-link"></span></a>Convert Bangla to English Date</h5>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">use</span> <span class="pl-s3">EasyBanglaDate\Types\BnDateTime</span>;</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require</span> <span class="pl-s1"><span class="pl-pds">'</span>autoload.php<span class="pl-pds">'</span></span></span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-vo">$bongabda</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">BnDateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"><span class="pl-c">//Set Bengali date</span></span>
+<span class="pl-s2"><span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>setDate(<span class="pl-c1">1405</span>,<span class="pl-c1">1</span>,<span class="pl-c1">1</span>);</span>
+<span class="pl-s2"><span class="pl-c">//Get english date in bangla</span></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>getDateTime()<span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"><span class="pl-c">//Get english date in english</span></span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>getDateTime()<span class="pl-k">-&gt;</span>_format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"></span></pre></div>
 
 <h2>
 <a id="contributing-to-library" class="anchor" href="#contributing-to-library" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing to Library</h2>
