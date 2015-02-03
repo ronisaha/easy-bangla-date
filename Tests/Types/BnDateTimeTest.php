@@ -17,7 +17,6 @@ use EasyBanglaDate\Types\BnDateTime;
 
 class BnDateTimeTest extends \PHPUnit_Framework_TestCase
 {
-
     public function flagDataProvider()
     {
         return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_data.csv');
@@ -53,7 +52,7 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function testCustomMorningTest()
     {
-        $object = new BnDateTime("2015-01-01 05:00:00", new \DateTimeZone('Asia/Dhaka'));
+        $object = $this->createObject("2015-01-01 05:00:00");
         $this->assertEquals("১৭", $object->format('d'));
         $object->setMorning(4);
         $this->assertEquals("১৮", $object->format('d'));
@@ -61,15 +60,27 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function testBanglaDateSetting()
     {
-        $object = new BnDateTime("2015-01-01 08:00:00", new \DateTimeZone('Asia/Dhaka'));
-        $object->setDate(1405,9,21);
+        $object = $this->createObjectAndSetBanglaDate("2015-01-01 08:00:00", 1405,9,21);
         $this->assertEquals("২১-০৯-১৪০৫ ০৮:০০:০০", $object->format('d-m-Y H:i:s'));
     }
 
     public function testDateTimeObject()
     {
-        $object = new BnDateTime("2015-01-01 08:00:00", new \DateTimeZone('Asia/Dhaka'));
-        $object->setDate(1421,1,1);
+        $object = $this->createObjectAndSetBanglaDate("2015-01-01 08:00:00", 1421,1,1);
         $this->assertEquals("১৪-০৪-২০১৪ ০৮:০০:০০", $object->getDateTime()->format('d-m-Y H:i:s'));
+    }
+
+    protected function createObjectAndSetBanglaDate($time, $year, $month, $day)
+    {
+        return $this->createObject($time)->setDate($year, $month, $day);
+    }
+
+    /**
+     * @param $time
+     * @return BnDateTime
+     */
+    protected function createObject($time)
+    {
+        return new BnDateTime($time, new \DateTimeZone('Asia/Dhaka'));
     }
 }

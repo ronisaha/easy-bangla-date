@@ -63,6 +63,8 @@ class BnDateTime  extends BaseDateTime
         );
 
         $this->setTimestamp($engTime->getTimestamp());
+
+        return $this;
     }
 
     /**
