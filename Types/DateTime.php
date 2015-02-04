@@ -46,7 +46,7 @@ class DateTime extends BaseDateTime
         return $this->translateNumbers($out);
     }
 
-    public function _format($format) {
-        return parent::_format($format);
+    public function enFormat($format) {
+        return $this->_format($format);
     }
 }

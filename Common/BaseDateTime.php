@@ -18,14 +18,14 @@ abstract class BaseDateTime extends  \DateTime
 
     protected static $bnDigit = array('০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯');
 
-    protected static $source = array(
+    protected static $enArray = array(
         'l' => array('Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'),
         'D' => array('Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'),
         'F' => array('January','February','March','April','May','June','July','August','September','October','November','December'),
         'M' => array('Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec')
     );
 
-    protected static $replace = array(
+    protected static $bnArray = array(
         'l' => array('শনিবার', 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহঃস্পতিবার', 'শুক্রবার'),
         'D' => array('শনি', 'রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহ', 'শুক্র'),
         'F' => array('জানুয়ারী','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'),
@@ -50,14 +50,14 @@ abstract class BaseDateTime extends  \DateTime
 
     protected function replaceSuffix($format)
     {
-        return str_replace('S', $this->getSuffix($this->_format('j')), $format);
+        return str_replace('S', $this->getBnSuffix($this->_format('j')), $format);
     }
 
     protected function _format($format) {
         return parent::format($format);
     }
 
-    protected function getSuffix($date)
+    protected function getBnSuffix($date)
     {
         $date = (int)$date;
 
@@ -103,7 +103,7 @@ abstract class BaseDateTime extends  \DateTime
         foreach ($items as $item) {
             $format = str_replace(
                 $item,
-                str_replace(BaseDateTime::$source[$item], BaseDateTime::$replace[$item], $this->_format($item)),
+                str_replace(BaseDateTime::$enArray[$item], BaseDateTime::$bnArray[$item], $this->_format($item)),
                 $format
             );
         }

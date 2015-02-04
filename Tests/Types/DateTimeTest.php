@@ -39,7 +39,7 @@ class DateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $object = new DateTime("2015-01-01 08:00:00", new \DateTimeZone('Asia/Dhaka'));
 
-        $this->assertEquals("01-01-2015 08:00:00", $object->_format('d-m-Y H:i:s'));
+        $this->assertEquals("01-01-2015 08:00:00", $object->enFormat('d-m-Y H:i:s'));
     }
 
 }

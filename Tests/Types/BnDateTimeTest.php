@@ -22,6 +22,11 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_data.csv');
     }
 
+    public function enFlagDataProvider()
+    {
+        return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_data_in_en.csv');
+    }
+
     public function dataProviderForFlag_t()
     {
         return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_t_data.csv');
@@ -37,6 +42,18 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $object = new BnDateTime($time, new \DateTimeZone('Asia/Dhaka'));
         $this->assertEquals($expected, $object->format($flag));
+    }
+
+    /**
+     * @dataProvider enFlagDataProvider
+     * @param $time
+     * @param $flag
+     * @param $expected
+     */
+    public function testEnFormat($time, $flag, $expected)
+    {
+        $object = new BnDateTime($time, new \DateTimeZone('Asia/Dhaka'));
+        $this->assertEquals($expected, $object->enFormat($flag), "$time, $flag, $expected");
     }
 
     /**

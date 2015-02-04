@@ -73,7 +73,7 @@ use EasyBanglaDate\Types\DateTime as EnDateTime;
 Both `EasyBanglaDate\Types\DateTime` and `EasyBanglaDate\Types\BnDateTime` has the member functions as native DateTime class.
 
 ##### DateTime
-* you can use `_format` function to get the default english `format` functionality.
+* you can use `enFormat` function to get output in english.
 
 ##### BnDateTime
 * `EasyBanglaDate\Types\BnDateTime` got extra method setMorning to define a hour for start of day. By default day start at 6.
@@ -108,7 +108,7 @@ require 'autoload.php'
 
 $date = new DateTime('now', new DateTimeZone('Asia/Dhaka'));
 
-echo $date->_format('l jS F Y b h:i:s');
+echo $date->enFormat('l jS F Y b h:i:s');
 
 ```
 
@@ -142,7 +142,7 @@ $bongabda->setDate(1405,1,1);
 //Get english date in bangla
 echo $bongabda->getDateTime()->format('l jS F Y b h:i:s');
 //Get english date in english
-echo $bongabda->getDateTime()->_format('l jS F Y h:i:s');
+echo $bongabda->getDateTime()->enFormat('l jS F Y h:i:s');
 
 ```
 
