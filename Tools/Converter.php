@@ -175,13 +175,7 @@ class Converter
      */
     private static function convertDatesOfMarch($day, $hour, $morning, $isLeapYear)
     {
-        $offset = false;
-
-        if ($day >= 1 && $day <= 14) {
-            $offset = self::getNextDayIfNot(15, $hour < $morning);
-        } elseif ($day == 15 && $hour < $morning) {
-            $offset = 15;
-        }
+        $offset = self::getOffsetValueDependingOnDateAndMorning($day, $hour, $morning);
 
         return $offset ? array(self::getNextDayIfNot($day + $offset, !$isLeapYear), 11)
             : self::getDateForNextMonth($day, $hour, $morning, 11, 15);
@@ -256,5 +250,24 @@ class Converter
         }
 
         return $days + $arr['day'];
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @return bool|int|mixed
+     */
+    private static function getOffsetValueDependingOnDateAndMorning($day, $hour, $morning)
+    {
+        if ($day >= 1 && $day <= 14) {
+            $offset = self::getNextDayIfNot(15, $hour < $morning);
+        } elseif ($day == 15 && $hour < $morning) {
+            $offset = 15;
+        } else {
+            $offset = false;
+        }
+
+        return $offset;
     }
 }
