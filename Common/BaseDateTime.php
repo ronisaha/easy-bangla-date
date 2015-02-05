@@ -35,8 +35,9 @@ abstract class BaseDateTime extends  \DateTime
     protected static $enAmPm = array('am', 'pm');
 
     protected static $bnAmPM = array('পূর্বাহ্ন', 'অপরাহ্ন');
-    protected static $bnSuffix = array('লা', 'রা', 'ঠা', 'ই', 'শে');
+    protected static $bnSuffix = array('', 'লা', 'রা', 'রা', 'ঠা', 'ই', 'শে');
     protected static $bnPrefix = array('ভোর', 'সকাল', 'দুপুর', 'বিকাল', 'সন্ধ্যা', 'রাত');
+    protected static $enTimeSlot = array('Dawn', 'Morning', 'Noon', 'Afternoon', 'Evening', 'Night');
 
     public function __construct($time = 'now', \DateTimeZone $timezone = null)
     {
@@ -59,18 +60,12 @@ abstract class BaseDateTime extends  \DateTime
 
     protected function getBnSuffix($date)
     {
-        $date = (int)$date;
+        $index = (int)$date;
 
-        if ($date == 1) {
-            $index = 0;
-        } elseif ($date == 2 || $date == 3) {
-            $index = 1;
-        } elseif ($date == 4) {
-            $index = 2;
-        } elseif ($date < 19 && $date > 4) {
-            $index = 3;
-        } else {
-            $index = 4;
+        if ($index < 19 && $index > 4) {
+            $index = 5;
+        } elseif($index > 18) {
+            $index = 6;
         }
 
         return BaseDateTime::$bnSuffix[$index];
@@ -141,18 +136,70 @@ abstract class BaseDateTime extends  \DateTime
     {
         $hour = (int)$this->_format('G');
 
-        if ($hour < 6 && $hour > 3) {
-            return 0;
-        } elseif ($hour < 12 && $hour > 5) {
-            return 1;
-        } elseif ($hour < 15 && $hour > 11) {
-            return 2;
-        } elseif ($hour < 18 && $hour > 14) {
-            return 3;
-        } elseif ($hour < 20 && $hour > 17) {
-            return 4;
-        } else {
-            return 5;
+        foreach (self::$enTimeSlot as $i => $slot) {
+            if ($this->isInTimeSlot($slot, $hour)) {
+                return $i;
+            }
         }
+    }
+
+    protected function isNight($hour)
+    {
+        return $hour > 19 || $hour < 4;
+    }
+
+    /**
+     * @param $hour
+     * @return bool
+     */
+    protected function isDawn($hour)
+    {
+        return $hour < 6 && $hour > 3;
+    }
+
+    /**
+     * @param $hour
+     * @return bool
+     */
+    protected function isMorning($hour)
+    {
+        return $hour < 12 && $hour > 5;
+    }
+
+    /**
+     * @param $hour
+     * @return bool
+     */
+    protected function isNoon($hour)
+    {
+        return $hour < 15 && $hour > 11;
+    }
+
+    /**
+     * @param $hour
+     * @return bool
+     */
+    protected function isAfternoon($hour)
+    {
+        return $hour < 18 && $hour > 14;
+    }
+
+    /**
+     * @param $hour
+     * @return bool
+     */
+    protected function isEvening($hour)
+    {
+        return $hour < 20 && $hour > 17;
+    }
+
+    /**
+     * @param $slot
+     * @param $hour
+     * @return mixed
+     */
+    protected function isInTimeSlot($slot, $hour)
+    {
+        return call_user_func(array($this, "is{$slot}"), $hour);
     }
 }

@@ -125,7 +125,7 @@ class BnDateTime  extends BaseDateTime
      */
     protected function replaceBnSuffix($format, $bnDate)
     {
-        return str_replace('S', $this->getBnSuffix($bnDate['day']), $format);
+        return str_replace('S', $this->getBnSuffix((int)$bnDate['day']), $format);
     }
 
     protected function replaceDateNumbers($format, $bnDate = array())

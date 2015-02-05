@@ -123,11 +123,11 @@ class Converter
     {
         $bnMonth = self::guessBanglaMonth($enMonth);
 
-        if ($day >= 1 && $day <= $offsetsArray[0]) {
+        if (self::is1stHalfOfMonth($day, $offsetsArray)) {
             return array(self::getNextDayIfNot($day + $offsetsArray[1], $hour < $morning), $bnMonth);
         }
 
-        if ($day == $offsetsArray[2] && $hour < $morning) {
+        if (self::isUpCommingMorning($day, $hour, $morning, $offsetsArray)) {
             return array($day + $offsetsArray[3], $bnMonth);
         }
 
@@ -175,7 +175,7 @@ class Converter
      */
     private static function convertDatesOfMarch($day, $hour, $morning, $isLeapYear)
     {
-        $offset = self::getOffsetValueDependingOnDateAndMorning($day, $hour, $morning);
+        $offset = self::getOffsetValueDependingOnDateAndMorningForMarch($day, $hour, $morning);
 
         return $offset ? array(self::getNextDayIfNot($day + $offset, !$isLeapYear), 11)
             : self::getDateForNextMonth($day, $hour, $morning, 11, 15);
@@ -207,7 +207,7 @@ class Converter
      */
     private static function isBeforeNewYear($enMonth, $day, $hour, $morning)
     {
-        return $enMonth < 4 || ($enMonth == 4 && (($day < 14) || ($day == 14 && $hour < $morning)));
+        return $enMonth < 4 || self::isAprilButBefore14th($enMonth, $day, $hour, $morning);
     }
 
     /**
@@ -258,16 +258,70 @@ class Converter
      * @param $morning
      * @return bool|int|mixed
      */
-    private static function getOffsetValueDependingOnDateAndMorning($day, $hour, $morning)
+    private static function getOffsetValueDependingOnDateAndMorningForMarch($day, $hour, $morning)
     {
         if ($day >= 1 && $day <= 14) {
-            $offset = self::getNextDayIfNot(15, $hour < $morning);
-        } elseif ($day == 15 && $hour < $morning) {
-            $offset = 15;
-        } else {
-            $offset = false;
+            return self::getNextDayIfNot(15, $hour < $morning);
+        } elseif (self::isBefore15thMorning($day, $hour, $morning)) {
+            return 15;
         }
 
-        return $offset;
+        return false;
+    }
+
+    /**
+     * @param $enMonth
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @return bool
+     */
+    private static function isAprilButBefore14th($enMonth, $day, $hour, $morning)
+    {
+        return ($enMonth == 4 && ($day < 14 || self::isBeforeMorningOf14thApril($day, $hour, $morning)));
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @return bool
+     */
+    private static function isBeforeMorningOf14thApril($day, $hour, $morning)
+    {
+        return ($day == 14 && $hour < $morning);
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @return bool
+     */
+    private static function isBefore15thMorning($day, $hour, $morning)
+    {
+        return $day == 15 && $hour < $morning;
+    }
+
+    /**
+     * @param $day
+     * @param $hour
+     * @param $morning
+     * @param $offsetsArray
+     * @return bool
+     */
+    private static function isUpCommingMorning($day, $hour, $morning, $offsetsArray)
+    {
+        return $day == $offsetsArray[2] && $hour < $morning;
+    }
+
+    /**
+     * @param $day
+     * @param $offsetsArray
+     * @return bool
+     */
+    private static function is1stHalfOfMonth($day, $offsetsArray)
+    {
+        return $day >= 1 && $day <= $offsetsArray[0];
     }
 }
