@@ -28,11 +28,13 @@ use EasyBanglaDate\Types\DateTime as EnDateTime;
 
 require 'autoload.php'
 
-$gregorian = new EnDateTime('now', new DateTimeZone('Asia/Dhaka'));
-$bongabda = new BnDateTime('now', new DateTimeZone('Asia/Dhaka'));
+$bongabda = new BnDateTime('2016-04-22 05:26:47 pm', new DateTimeZone('Asia/Dhaka'));
+$bongabda->setDate(1398, 1, 1);
 
-echo $gregorian->format('l jS F Y b h:i:s');
-echo $bongabda->format('l jS F Y b h:i:s');
+echo $bongabda->format('l jS F Y b h:i:s') . PHP_EOL ;
+echo $bongabda->enFormat('l jS F Y h:i:s a') . PHP_EOL;
+echo $bongabda->getDateTime()->format('l jS F Y b h:i:s'). PHP_EOL;
+echo $bongabda->getDateTime()->enFormat('l jS F Y h:i:s A') . PHP_EOL;
 
 ```
 
