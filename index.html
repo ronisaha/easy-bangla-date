@@ -103,7 +103,7 @@ load the class using Composer's autoloading:</p>
 <a id="datetime" class="anchor" href="#datetime" aria-hidden="true"><span class="octicon octicon-link"></span></a>DateTime</h5>
 
 <ul>
-<li>you can use <code>_format</code> function to get the default english <code>format</code> functionality.</li>
+<li>you can use <code>enFormat</code> function to get output in english.</li>
 </ul>
 
 <h5>
@@ -144,7 +144,7 @@ load the class using Composer's autoloading:</p>
 <span class="pl-s2"></span>
 <span class="pl-s2"><span class="pl-vo">$date</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-s3">DateTime</span>(<span class="pl-s1"><span class="pl-pds">'</span>now<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-s3">DateTimeZone</span>(<span class="pl-s1"><span class="pl-pds">'</span>Asia/Dhaka<span class="pl-pds">'</span></span>));</span>
 <span class="pl-s2"></span>
-<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$date</span><span class="pl-k">-&gt;</span>_format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$date</span><span class="pl-k">-&gt;</span>enFormat(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
 <span class="pl-s2"></span></pre></div>
 
 <h5>
@@ -176,7 +176,7 @@ load the class using Composer's autoloading:</p>
 <span class="pl-s2"><span class="pl-c">//Get english date in bangla</span></span>
 <span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>getDateTime()<span class="pl-k">-&gt;</span>format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y b h:i:s<span class="pl-pds">'</span></span>);</span>
 <span class="pl-s2"><span class="pl-c">//Get english date in english</span></span>
-<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>getDateTime()<span class="pl-k">-&gt;</span>_format(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y h:i:s<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s2"><span class="pl-s3">echo</span> <span class="pl-vo">$bongabda</span><span class="pl-k">-&gt;</span>getDateTime()<span class="pl-k">-&gt;</span>enFormat(<span class="pl-s1"><span class="pl-pds">'</span>l jS F Y h:i:s<span class="pl-pds">'</span></span>);</span>
 <span class="pl-s2"></span></pre></div>
 
 <h2>
