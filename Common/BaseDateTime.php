@@ -135,18 +135,17 @@ abstract class BaseDateTime extends  \DateTime
     protected function getPrefixIndex()
     {
         $hour = (int)$this->_format('G');
+        $items = count(self::$enTimeSlot) - 1;
 
-        foreach (self::$enTimeSlot as $i => $slot) {
-            if ($this->isInTimeSlot($slot, $hour)) {
+        for ($i = 0; $i < $items; $i++) {
+            if ($this->isInTimeSlot(self::$enTimeSlot[$i], $hour)) {
                 return $i;
             }
         }
+
+        return $i;
     }
 
-    protected function isNight($hour)
-    {
-        return $hour > 19 || $hour < 4;
-    }
 
     /**
      * @param $hour
