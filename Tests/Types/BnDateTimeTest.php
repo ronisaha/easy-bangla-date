@@ -32,6 +32,17 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         return new CsvFileIterator(__DIR__ . '/../Resources/bn_flag_t_data.csv');
     }
 
+    public function dataProviderEnSuffix() {
+        $ret = array();
+        $date = new \DateTime('2014-01-01');
+        for($i=0; $i < 31; $i++) {
+            $ret[] = array($i+1, $date->format('S'));
+            $date->modify('+1 day');
+        }
+
+        return $ret;
+    }
+
     /**
      * @dataProvider flagDataProvider
      * @param $time
@@ -54,6 +65,16 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $object = new BnDateTime($time, new \DateTimeZone('Asia/Dhaka'));
         $this->assertEquals($expected, $object->enFormat($flag), "$time, $flag, $expected");
+    }
+
+    /**
+     * @dataProvider dataProviderEnSuffix
+     * @param $day
+     * @param $suffix
+     */
+    public function testEnSuffix($day, $suffix) {
+        $object = $this->createObject('now')->setDate('1422', 1, $day);
+        $this->assertEquals($suffix, $object->enFormat('S'), "$day, $suffix");
     }
 
     /**

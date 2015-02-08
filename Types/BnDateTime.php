@@ -168,7 +168,7 @@ class BnDateTime  extends BaseDateTime
 
     protected function getEnSuffix($num) {
 
-        $index = ($num % 10);
+        $index = $this->getSuffixArrayIndexFromNumber($num);
 
         if($index > 3) {
             $index = 0;
@@ -191,5 +191,18 @@ class BnDateTime  extends BaseDateTime
         }
 
         return $template;
+    }
+
+    /**
+     * @param $num
+     * @return int
+     */
+    protected function getSuffixArrayIndexFromNumber($num)
+    {
+        if (in_array($num, array(11, 12, 13))) {
+            return 0;
+        }
+
+        return ($num % 10);
     }
 }
