@@ -23,8 +23,15 @@ class BnDateTime  extends BaseDateTime
     /** @var  \DateTime */
     private $_phpDateTime;
 
-    protected static $bnMonths = array('', 'বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র');
-    protected static $enMonths = array('', 'Boishakh','Joishtha','Ashar','Srabon','Bhadra','Ashwin','Kartik','Ogrohayon','Poush','Magh','Falgun','Choitra');
+    protected static $bnMonths = array(
+        'F' => array('বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্রহায়ণ','পৌষ','মাঘ','ফাল্গুন','চৈত্র'),
+        'M' => array('বৈশাখ','জ্যৈষ্ঠ','আষাঢ়','শ্রাবণ','ভাদ্র','আশ্বিন','কার্তিক','অগ্র','পৌষ','মাঘ','ফাল্গুন','চৈত্র')
+    );
+
+    protected static $enMonths = array(
+        'F' => array('Boishakh','Joishtha','Ashar','Srabon','Bhadra','Ashwin','Kartik','Ogrohayon','Poush','Magh','Falgun','Choitra'),
+        'M' => array('Boi','Joi','Ash','Sra','Bha','Ash','Kar','Ogr','Pou','Mag','Fal','Cho')
+    );
     protected static $daysInMonth = array('', 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 30, 30);
     protected static $enSuffix = array('th', 'st', 'nd', 'rd');
 
@@ -187,7 +194,7 @@ class BnDateTime  extends BaseDateTime
     protected function replaceMonthString($template, $bnDate, $monthArray, $keyTemplate)
     {
         foreach(array('F','M') as $key){
-            $template = str_replace(sprintf($keyTemplate, $key), $monthArray[$bnDate['month']], $template);
+            $template = str_replace(sprintf($keyTemplate, $key), $monthArray[$key][$bnDate['month'] - 1], $template);
         }
 
         return $template;
