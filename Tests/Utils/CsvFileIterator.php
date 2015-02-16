@@ -1,6 +1,6 @@
 <?php
 
-namespace EasyBanglaDate\Tests\Utils;
+namespace EasyBanglaDateTests\Utils;
 
 class CsvFileIterator implements \Iterator {
     protected $file;

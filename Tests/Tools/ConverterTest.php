@@ -10,10 +10,10 @@
  */
 
 
-namespace Tests\Tools;
+namespace EasyBanglaDateTests\Tools;
 
 
-use EasyBanglaDate\Tests\Utils\CsvFileIterator;
+use EasyBanglaDateTests\Utils\CsvFileIterator;
 use EasyBanglaDate\Tools\Converter;
 
 class ConverterTest extends \PHPUnit_Framework_TestCase

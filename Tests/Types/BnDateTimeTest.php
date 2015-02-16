@@ -10,9 +10,9 @@
  */
 
 
-namespace EasyBanglaDate\Tests\Types;
+namespace EasyBanglaDateTests\Types;
 
-use EasyBanglaDate\Tests\Utils\CsvFileIterator;
+use EasyBanglaDateTests\Utils\CsvFileIterator;
 use EasyBanglaDate\Types\BnDateTime;
 
 class BnDateTimeTest extends \PHPUnit_Framework_TestCase

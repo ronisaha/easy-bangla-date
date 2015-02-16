@@ -24,11 +24,13 @@
         "satooshi/php-coveralls": "~0.6"
     },
     "autoload": {
-        "psr-0": {
-            "EasyBanglaDate": ""
+        "psr-4": {
+            "EasyBanglaDate\\": ""
         }
     },
-    "target-dir": "EasyBanglaDate",
+    "autoload-dev": {
+        "psr-4": { "EasyBanglaDateTests\\": "Tests/" }
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
