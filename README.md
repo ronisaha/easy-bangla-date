@@ -2,7 +2,7 @@ Easy Bangla Date
 =================
 [![Build Status](https://travis-ci.org/ronisaha/easy-bangla-date.png?branch=master)](https://travis-ci.org/ronisaha/easy-bangla-date)
 [![HHVM Status](http://hhvm.h4cc.de/badge/ronisaha/easy-bangla-date.svg)](http://hhvm.h4cc.de/package/ronisaha/easy-bangla-date)
-[![Coverage Status](https://coveralls.io/repos/ronisaha/easy-bangla-date/badge.png)](https://coveralls.io/r/ronisaha/easy-bangla-date)
+[![Coverage Status](https://coveralls.io/repos/ronisaha/easy-bangla-date/badge.svg?branch=master)](https://coveralls.io/r/ronisaha/easy-bangla-date?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ronisaha/easy-bangla-date/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ronisaha/easy-bangla-date/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/ronisaha/easy-bangla-date/v/stable.png)](https://packagist.org/packages/ronisaha/easy-bangla-date)
 [![Total Downloads](https://poser.pugx.org/ronisaha/easy-bangla-date/downloads.png)](https://packagist.org/packages/ronisaha/easy-bangla-date)
