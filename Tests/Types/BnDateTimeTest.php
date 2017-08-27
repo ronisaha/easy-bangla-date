@@ -55,6 +55,12 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $object->format($flag));
     }
 
+    public function testFactoryShouldReturnNullForNullValue()
+    {
+        $time = BnDateTime::create(null);
+        $this->assertNull($time);
+    }
+
     public function testFactoryShouldCreateBnDateTimeObjectFromString()
     {
         $timeStr = '2015-01-01 05:00:00';
