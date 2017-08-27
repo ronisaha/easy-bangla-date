@@ -39,6 +39,26 @@ class BnDateTime  extends BaseDateTime
 
     private $morning = 6;
 
+    public static function create($time = 'now')
+    {
+        $dateTime = null;
+
+        if (is_string($time)) {
+            return new static($time);
+        } elseif ($time instanceof BnDateTime) {
+            return $time;
+        } elseif ($time instanceof \DateTime) {
+            $dateTime = new static();
+            $dateTime->setTimestamp($time->getTimestamp());
+            $dateTime->setTimezone($time->getTimezone());
+        } elseif (is_int($time)) {
+            $dateTime = new static();
+            $dateTime->setTimestamp($time);
+        }
+
+        return $dateTime;
+    }
+
     public function __construct($time = 'now', \DateTimeZone $timezone = null)
     {
         parent::__construct($time, $timezone);
@@ -149,7 +169,7 @@ class BnDateTime  extends BaseDateTime
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     private function getNativeDateTimeObject()
     {

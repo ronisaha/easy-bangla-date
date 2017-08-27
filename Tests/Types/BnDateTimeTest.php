@@ -55,6 +55,45 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $object->format($flag));
     }
 
+    public function testFactoryShouldCreateBnDateTimeObjectFromString()
+    {
+        $timeStr = '2015-01-01 05:00:00';
+        $time = BnDateTime::create($timeStr);
+        $this->assertEquals(new BnDateTime($timeStr), $time);
+    }
+
+    public function testFactoryShouldReturnSameObjectIfBnDateObjectGiven()
+    {
+        $bnDateTime = new BnDateTime('now');
+        $this->assertEquals(BnDateTime::create($bnDateTime), $bnDateTime);
+    }
+
+    public function testFactoryShouldReturnBnDateTimeObjectWithSameNativeDateTime()
+    {
+        $dateTime = new \DateTime('now');
+        $bnDateTime = BnDateTime::create($dateTime);
+        $this->assertInstanceOf(BnDateTime::class, $bnDateTime);
+        $this->assertEquals($bnDateTime->getTimestamp(), $dateTime->getTimestamp());
+    }
+
+    public function testFactoryShouldReturnBnDateTimeObjectFromTimeStamp()
+    {
+        $time = time();
+        $bnDateTime = BnDateTime::create($time);
+        $this->assertInstanceOf(BnDateTime::class, $bnDateTime);
+        $this->assertEquals($bnDateTime->getTimestamp(), $time);
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testFactoryForInvalidInputShouldThrowException()
+    {
+        $invalidTimeString = 'invalid';
+        $bnDateTime = BnDateTime::create($invalidTimeString);
+        $this->assertInstanceOf(BnDateTime::class, $bnDateTime);
+    }
+
     /**
      * @dataProvider enFlagDataProvider
      * @param $time
