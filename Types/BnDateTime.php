@@ -78,7 +78,7 @@ class BnDateTime  extends BaseDateTime
      *
      * @return bool
      */
-    private static function isNullOrBnDateTimeObject($time): bool
+    private static function isNullOrBnDateTimeObject($time)
     {
         return null === $time || $time instanceof BnDateTime;
     }
