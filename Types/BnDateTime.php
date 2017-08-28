@@ -39,6 +39,13 @@ class BnDateTime  extends BaseDateTime
 
     private $morning = 6;
 
+    public function __construct($time = 'now', \DateTimeZone $timezone = null)
+    {
+        parent::__construct($time, $timezone);
+        $this->_dateTime = new DateTime();
+        $this->_phpDateTime = new \DateTime();
+    }
+
     /**
      * @param DateTime|\DateTime|BnDateTime|string $time
      *
@@ -51,7 +58,7 @@ class BnDateTime  extends BaseDateTime
             $time = new self($time);
         }
 
-        if (null === $time || $time instanceof BnDateTime) {
+        if (self::isNullOrBnDateTimeObject($time)) {
             return $time;
         }
 
@@ -66,11 +73,14 @@ class BnDateTime  extends BaseDateTime
         return $dateTime;
     }
 
-    public function __construct($time = 'now', \DateTimeZone $timezone = null)
+    /**
+     * @param $time
+     *
+     * @return bool
+     */
+    private static function isNullOrBnDateTimeObject($time): bool
     {
-        parent::__construct($time, $timezone);
-        $this->_dateTime = new DateTime();
-        $this->_phpDateTime = new \DateTime();
+        return null === $time || $time instanceof BnDateTime;
     }
 
     public function format($format)
