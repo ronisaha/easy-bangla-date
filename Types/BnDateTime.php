@@ -46,29 +46,23 @@ class BnDateTime  extends BaseDateTime
      */
     public static function create($time = null)
     {
-        $dateTime = null;
-
-        if(null === $time) {
-            return null;
-        }
 
         if (is_string($time)) {
-            return new self($time);
+            $time = new self($time);
         }
 
-        if ($time instanceof BnDateTime) {
+        if (null === $time || $time instanceof BnDateTime) {
             return $time;
         }
 
+        $dateTime = new self();
+
         if ($time instanceof \DateTime) {
-            $dateTime = new self();
-            $dateTime->setTimestamp($time->getTimestamp());
             $dateTime->setTimezone($time->getTimezone());
-        } elseif (is_int($time)) {
-            $dateTime = new self();
-            $dateTime->setTimestamp($time);
+            $time = $time->getTimestamp();
         }
 
+        $dateTime->setTimestamp($time);
         return $dateTime;
     }
 
