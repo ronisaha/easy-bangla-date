@@ -15,8 +15,9 @@ namespace EasyBanglaDateTests\Tools;
 
 use EasyBanglaDateTests\Utils\CsvFileIterator;
 use EasyBanglaDate\Tools\Converter;
+use PHPUnit\Framework\TestCase;
 
-class ConverterTest extends \PHPUnit_Framework_TestCase
+class ConverterTest extends TestCase
 {
     public function flagDataProvider()
     {

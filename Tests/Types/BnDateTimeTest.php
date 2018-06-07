@@ -14,8 +14,9 @@ namespace EasyBanglaDateTests\Types;
 
 use EasyBanglaDateTests\Utils\CsvFileIterator;
 use EasyBanglaDate\Types\BnDateTime;
+use PHPUnit\Framework\TestCase;
 
-class BnDateTimeTest extends \PHPUnit_Framework_TestCase
+class BnDateTimeTest extends TestCase
 {
     public function flagDataProvider()
     {
@@ -78,7 +79,7 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $dateTime = new \DateTime('now');
         $bnDateTime = BnDateTime::create($dateTime);
-        $this->assertInstanceOf(BnDateTime::class, $bnDateTime);
+        $this->assertInstanceOf('EasyBanglaDate\Types\BnDateTime', $bnDateTime);
         $this->assertEquals($bnDateTime->getTimestamp(), $dateTime->getTimestamp());
     }
 
@@ -86,7 +87,7 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $time = time();
         $bnDateTime = BnDateTime::create($time);
-        $this->assertInstanceOf(BnDateTime::class, $bnDateTime);
+        $this->assertInstanceOf('EasyBanglaDate\Types\BnDateTime', $bnDateTime);
         $this->assertEquals($bnDateTime->getTimestamp(), $time);
     }
 
@@ -97,7 +98,7 @@ class BnDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $invalidTimeString = 'invalid';
         $bnDateTime = BnDateTime::create($invalidTimeString);
-        $this->assertInstanceOf(BnDateTime::class, $bnDateTime);
+        $this->assertInstanceOf('EasyBanglaDate\Types\BnDateTime', $bnDateTime);
     }
 
     /**
